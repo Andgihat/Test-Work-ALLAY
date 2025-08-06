@@ -85,7 +85,6 @@ React.useEffect(() => {
       <Typography variant="h5" component="h1" gutterBottom>
         {data.formId} (v{data.version})
       </Typography>
-
       <Paper variant="outlined" sx={{ p: 2 }}>
         <MuiForm
           schema={data.jsonSchema}

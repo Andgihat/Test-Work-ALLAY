@@ -31,7 +31,6 @@ export default function HomePage() {
       <Typography variant="h5" component="h1" gutterBottom>
         Открыть форму по схеме
       </Typography>
-
       <Paper variant="outlined" sx={{ p: 2 }}>
         <form onSubmit={handleSubmit} noValidate>
           <Stack spacing={2}>
@@ -44,7 +43,6 @@ export default function HomePage() {
               fullWidth
               autoFocus
             />
-
             <TextField
               label="Версия"
               value={version}
@@ -54,7 +52,6 @@ export default function HomePage() {
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
               helperText="Пусто — откроется последняя версия"
             />
-
             <Stack direction="row" spacing={2} justifyContent="flex-end">
               <Button type="submit" variant="contained">
                 Открыть
