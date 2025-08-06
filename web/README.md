@@ -1,69 +1,51 @@
-# React + TypeScript + Vite
+# Web (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+UI для рендеринга форм по JSON Schema. Получает схемы с бэкенда и рисует форму (MUI) на маршруте `/:formId/:version?`.
 
-Currently, two official plugins are available:
+## Требования
+- Node.js ≥ 18
+- Запущенный бэкенд на Nest (по умолчанию `http://localhost:3000`)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Установка
+```bash
+cd web
+npm i
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Настройка окружения
+Создайте файл `.env` (или `.env.local`) в папке `web`:
+```env
+VITE_API_URL=http://localhost:3000
 ```
+> После изменения `.env` перезапустите dev-сервер.
+
+## Запуск (dev)
+```bash
+npm run dev
+```
+Откройте: http://localhost:5173
+
+## Маршруты
+- `/` — ввод `formId` и опционально `version`.
+- `/:formId/:version?` — рендер формы.
+  - если `version` не задана или равна `latest` → берётся последняя версия схемы.
+
+## Билд
+```bash
+npm run build
+npm run preview
+```
+
+## Технологии
+- React + Vite + TypeScript
+- Material UI (`@mui/material`)
+- React JSONSchema Form (`@rjsf/mui`, валидатор AJV)
+- Axios
+
+## Возможные проблемы
+- **"Invalid schema: undefined" / пустая форма** — проверьте `VITE_API_URL` и что бэкенд доступен.
+- **CORS** — включите на бэке:
+  ```ts
+  app.enableCors({ origin: 'http://localhost:5173' });
+  ```
+
