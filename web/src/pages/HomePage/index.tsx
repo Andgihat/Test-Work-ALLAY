@@ -17,11 +17,11 @@ export default function HomePage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const id = formId.trim();
-    const v = version.trim();
+    const versionSchemas = version.trim();
     if (!id) return;
     navigate(
-      v
-        ? `/${encodeURIComponent(id)}/${encodeURIComponent(v)}`
+      versionSchemas
+        ? `/${encodeURIComponent(id)}/${encodeURIComponent(versionSchemas)}`
         : `/${encodeURIComponent(id)}/latest`
     );
   };
